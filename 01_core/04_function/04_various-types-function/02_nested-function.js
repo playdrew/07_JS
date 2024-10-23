@@ -10,7 +10,7 @@
 
 function outer(){
 
-    var outerValue = '외부함수가 가지고 있는 변수' // 필드
+    var outerValue = '외부함수가 가지고 있는 변수'; // 필드
 
     function inner(){
         var innerValue = '내부함수가 가지고 있는 변수';
