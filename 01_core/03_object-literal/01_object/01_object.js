@@ -49,6 +49,9 @@ var student2 = {};
 console.log(student2);
 console.log(typeof student2);
 
+const a = Object.create(null);
+console.log(a);
+
 /*
     객체 리터럴 방식은 student 객체를 만든 것처럼
     프로퍼티를 넣으면서 생성을 할수도 있고,
