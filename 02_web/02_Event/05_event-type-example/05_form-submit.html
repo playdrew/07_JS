@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>05. 폼 제출 이벤트</h1>
+    <pre>
+        submit 이벤트는 폼 제출할 때 발생하는 이벤트로 
+        서버에 데이터를 전송하기 전 검증을 할 때 사용된다.
+        그리고 검증을 거쳐 이상한 값이 들어오면 취소하는
+        역할을 하게 된다.
+    </pre>
+    <!-- 폼태그를 제출하는 버튼을 누르면 action에 발송-->
+    <form action="http://search.naver.com/search.naver" 
+    method="get" name="search">
+    <input type="text" name="query"  placeholder="검색 키워드 작성">
+    <button type="submit">검색어 네이버로 검색하기</button>
+</form>
+    <script>
+        // 화살표함수로 쓰게 되면 this 는 window 이고 querySelector
+        // document 에서 querySelector가 되기 때문
+        const $form = document.forms.search;
+        $form.onsubmit = function(){
+            let keyword = this.querySelector('input[name=query]').value;
+            // 아무것도 검색을 안했을땐 제출을 막고싶다
+            if(!keyword){
+                alert('검색어는 필수입니다.');
+                return false;
+            }
+        };
+    </script>
+</body>
+</html>
