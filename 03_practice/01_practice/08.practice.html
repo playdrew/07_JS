@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        input[type="text"], input[type="date"] {
+            width: calc(100% - 60px);
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        li button {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .edit-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My To-Do List</h1>
+        <input type="text" id="titleInput" placeholder="Task Title...">
+        <input type="text" id="contentInput" placeholder="Task Content...">
+        <input type="date" id="dateInput">
+        <button id="addTaskBtn">Add</button>
+        <ul id="taskList"></ul>
+    </div>
+    <script>
+        const titleInput = document.getElementById('titleInput');
+        const contentInput = document.getElementById('contentInput');
+        const dateInput = document.getElementById('dateInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const taskList = document.getElementById('taskList');
+
+        addTaskBtn.addEventListener('click', function() {
+            const titleInputValue = titleInput.value.trim();
+            const contentInputValue = contentInput.value.trim();
+            const dateInputValue = dateInput.value;
+
+            if (titleInputValue && contentInputValue && dateInputValue) {
+                const li = document.createElement('li');
+                li.textContent = `${titleInputValue} : ${contentInputValue} : ${dateInputValue}`;
+
+                const editBtn = document.createElement('button');
+                editBtn.innerText = '수정';
+                const deleteBtn = document.createElement('button');
+                deleteBtn.innerText = '삭제';
+
+                editBtn.addEventListener('click', function() {
+                    const editTitleInput = document.createElement('input');
+                    editTitleInput.type = 'text';
+                    editTitleInput.value = titleInputValue;
+
+                    const editContentInput = document.createElement('input');
+                    editContentInput.type = 'text';
+                    editContentInput.value = contentInputValue;
+
+                    const editDateInput = document.createElement('input');
+                    editDateInput.type = 'date';
+                    editDateInput.value = dateInputValue;
+
+                    li.innerHTML = ''; // Reset the li content
+                    li.appendChild(editTitleInput);
+                    li.appendChild(editContentInput);
+                    li.appendChild(editDateInput);
+
+                    const saveBtn = document.createElement('button');
+                    saveBtn.innerText = 'save';
+                    li.appendChild(saveBtn);
+
+                    saveBtn.addEventListener('click', function() {
+                        if (editTitleInput.value.trim() && editContentInput.value.trim() && editDateInput.value) {
+                            li.textContent = `${editTitleInput.value.trim()} : ${editContentInput.value.trim()} : ${editDateInput.value}`;
+                            li.appendChild(editBtn);
+                            li.appendChild(deleteBtn);
+                        } else {
+                            alert("모든 필드를 입력해주세요!!");
+                        }
+                    });
+                });
+
+                deleteBtn.addEventListener('click', function() {
+                    li.remove();
+                });
+
+                li.appendChild(editBtn);
+                li.appendChild(deleteBtn);
+                taskList.appendChild(li);
+            } else {
+                alert("모든 필드를 입력해주세요!!");
+            }
+        });
+    </script>
+</body>
+</html>
